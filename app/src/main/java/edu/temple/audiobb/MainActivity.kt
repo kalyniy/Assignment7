@@ -1,6 +1,5 @@
 package edu.temple.audiobb
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -19,9 +18,15 @@ class MainActivity : AppCompatActivity(), BookListFragment.BookSelectedInterface
         ViewModelProvider(this).get(SelectedBookViewModel::class.java)
     }
     private val intentLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
+        if (result.resultCode == RESULT_OK) {
             val intent = result.data
-            val bookList = intent?.getSerializableExtra("SearchBooks") as BookList?
+            val bookList = intent?.getSerializableExtra("SearchBooks") as BookList
+            val fragment = BookListFragment.newInstance(bookList)
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container1, fragment)
+                .setReorderingAllowed(true)
+                .addToBackStack(null)
+                .commit()
             Log.d("Test: ", bookList?.size().toString())
         }
     }

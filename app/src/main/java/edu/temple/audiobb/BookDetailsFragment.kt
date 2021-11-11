@@ -1,17 +1,15 @@
 package edu.temple.audiobb
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
-import android.net.Uri;
 import androidx.core.net.toUri
-import java.net.URI
-
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.squareup.picasso.Picasso
 class BookDetailsFragment : Fragment() {
 
     lateinit var titleTextView: TextView
@@ -43,6 +41,7 @@ class BookDetailsFragment : Fragment() {
             titleTextView.text = title
             authorTextView.text = author
             imageBook.setImageURI(coverURL.toUri())
+            Picasso.get().load(coverURL.toUri()).into(imageBook)
         }
     }
 }
