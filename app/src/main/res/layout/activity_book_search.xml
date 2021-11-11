@@ -7,6 +7,7 @@
     tools:context=".BookSearchActivity">
 
     <EditText
+        android:id="@+id/editField"
         android:layout_width="199dp"
         android:layout_height="47dp"
         android:ems="10"
