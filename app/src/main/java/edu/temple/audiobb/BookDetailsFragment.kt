@@ -5,13 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import android.net.Uri;
+import androidx.core.net.toUri
+import java.net.URI
 
 class BookDetailsFragment : Fragment() {
 
     lateinit var titleTextView: TextView
     lateinit var authorTextView: TextView
+    lateinit var imageBook: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,6 +26,7 @@ class BookDetailsFragment : Fragment() {
 
         titleTextView = layout.findViewById(R.id.titleTextView)
         authorTextView = layout.findViewById(R.id.authorTextView)
+        imageBook = layout.findViewById(R.id.imageBook)
 
         return layout
     }
@@ -36,6 +42,7 @@ class BookDetailsFragment : Fragment() {
         book?.run {
             titleTextView.text = title
             authorTextView.text = author
+            imageBook.setImageURI(coverURL.toUri())
         }
     }
 }
