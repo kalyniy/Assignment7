@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
+import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
@@ -16,7 +17,8 @@ class BookSearchActivity : AppCompatActivity() {
     lateinit var editField: EditText
     lateinit var btnCancel: Button
     lateinit var btnSearch: Button
-    val requestQueue = Volley.newRequestQueue(this)
+
+    lateinit var requestQueue: RequestQueue
     val url = "https://kamorris.com/lab/cis3515/search.php?term="
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +28,7 @@ class BookSearchActivity : AppCompatActivity() {
         editField = findViewById(R.id.editField)
         btnCancel = findViewById(R.id.btnCancel)
         btnSearch = findViewById(R.id.btnSearch)
-
+        requestQueue = Volley.newRequestQueue(this)
         btnCancel.setOnClickListener {
             val i = Intent()
             setResult(RESULT_OK, i)

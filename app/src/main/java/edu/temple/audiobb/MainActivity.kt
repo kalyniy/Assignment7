@@ -1,10 +1,14 @@
 package edu.temple.audiobb
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-
 class MainActivity : AppCompatActivity(), BookListFragment.BookSelectedInterface {
 
     val isSingleContainer : Boolean by lazy{
@@ -14,6 +18,11 @@ class MainActivity : AppCompatActivity(), BookListFragment.BookSelectedInterface
     val selectedBookViewModel : SelectedBookViewModel by lazy {
         ViewModelProvider(this).get(SelectedBookViewModel::class.java)
     }
+    private val intentLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +30,11 @@ class MainActivity : AppCompatActivity(), BookListFragment.BookSelectedInterface
 
         // Grab test data
         val bookList = getBookList()
+        val txtSearch = findViewById<TextView>(R.id.txtSearchField)
+        txtSearch.setOnClickListener {
+            Log.d("TEST!!!" , "TEST")
+            intentLauncher.launch(Intent(this, BookSearchActivity::class.java))
+        }
 
         // If we're switching from one container to two containers
         // clear BookDetailsFragment from container1
@@ -74,5 +88,17 @@ class MainActivity : AppCompatActivity(), BookListFragment.BookSelectedInterface
                 .addToBackStack(null)
                 .commit()
         }
+    }
+    fun openSearchActivity() {
+        try
+        {
+            val intent = Intent(this, BookSearchActivity::class.java)
+            startActivity(intent)
+        }
+        catch (e: Exception)
+        {
+            Log.d("Error", e.toString())
+        }
+
     }
 }
