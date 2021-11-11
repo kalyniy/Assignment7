@@ -20,7 +20,9 @@ class MainActivity : AppCompatActivity(), BookListFragment.BookSelectedInterface
     }
     private val intentLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-
+            val intent = result.data
+            val bookList = intent?.getSerializableExtra("SearchBooks") as BookList?
+            Log.d("Test: ", bookList?.size().toString())
         }
     }
 
@@ -32,7 +34,6 @@ class MainActivity : AppCompatActivity(), BookListFragment.BookSelectedInterface
         val bookList = getBookList()
         val txtSearch = findViewById<TextView>(R.id.txtSearchField)
         txtSearch.setOnClickListener {
-            Log.d("TEST!!!" , "TEST")
             intentLauncher.launch(Intent(this, BookSearchActivity::class.java))
         }
 
